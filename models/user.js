@@ -3,7 +3,7 @@ const mongoose = require('../db/connection');
 const Schema = mongoose.Schema;
 
 // bcrypt settings
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 // Require other models
 const List = require('./List.js');
@@ -25,24 +25,33 @@ let UserSchema = new Schema({
     timestamps: true
   });
 
-  UserSchema.pre('save', function(next) {
-    const user = this;
-    bcrypt.genSalt(10, function (err, salt){
-      if (err) {
-        return next("Password salting error", err);
-      }
+UserSchema.pre('save', function(next) {
+  var user = this;
+  bcrypt.genSalt(10, function (err, salt){
+    if (err) {
+      return next("Password salting error", err);
+    }
 
-      bcrypt.hash(user.password, salt, null, function (err, hash) {
-        if (err) {
-          return next("Password hashing error", err);
-        }
-        console.log("Saving hashed password");
-        user.password = hash;
-        next();
-      })
+    bcrypt.hash(user.password, salt, null, function (err, hash) {
+      if (err) {
+        return next("Password hashing error", err);
+      }
+      console.log("Saving hashed password");
+      user.password = hash;
+      next();
     })
   })
+})
 
-  mongoose.model('User', UserSchema);
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, isMatch);
+  })
+}
 
-  module.exports = mongoose
+mongoose.model('User', UserSchema);
+
+module.exports = mongoose;
