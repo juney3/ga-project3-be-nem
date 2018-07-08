@@ -1,11 +1,11 @@
 //Passport and JWT
-var passport = require('passport';
+var passport = require('passport');
 var passportJWT = require('passport-jwt');
 var ExtractJwt = passportJWT.ExtractJwt;
 var Strategy = passportJWT.Strategy;
 
 //Require config file
-var config - require('./config');
+var config = require('./config');
 
 //Import Mongoose models
 const mongoose = require('../models/User');
@@ -28,7 +28,7 @@ module.exports = function() {
       return callback(new Error('User not found'), null)
     }
   })
-  passport.user(strategy)
+  passport.use(strategy)
   return {
     initialize: function() {
       return passport.initialize()
