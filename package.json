@@ -1,0 +1,21 @@
+{
+  "name": "proj3_be_nem",
+  "version": "1.0.0",
+  "description": "GA SF WDI45 Project 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "June Yoshii",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "md5": "^2.2.1",
+    "mongoose": "^5.2.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
+  }
+}
