@@ -4,8 +4,7 @@ const router = express.Router();
 const jwt = require('jwt-simple');
 const passport = require('../config/passport');
 const config = require('../config/config');
-const mongoose = require('../models/User');
-const User = mongoose.model('User');
+const User = require('../models/User');
 
 //Routes
 router.post('/signup', (req, res) => {
@@ -67,40 +66,122 @@ router.post('/signup', (req, res) => {
                 res.send("this is the second unauthorized error")
               }
             })
+            .catch(error => {
+              console.log("this was a sign up error", errs)
+            })
     }
     else {
       res.send(res)
     }
 })
 
-router.post('/login', (req, res) => {
-  if (req.body.email && req.body.password) {
-    User.findOne({
-      email: req.body.email
-    })
-    .then(user => {
-      if (user) {
-        if (user.password === req.body.password) {
+router.post('/login', function(req, res) {
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if (err) throw err;
+
+    if (!user) {
+      res.status(401).send({
+        success: false,
+        message: "Authentication failed. User not found."
+      })
+    }
+    else {
+      user.comparePassword(req.body.password, function (err, isMatch) {
+        if (isMatch && !err) {
           let payload = {
             id: user.id
           }
           let token = jwt.encode(payload, config.jwtSecret)
           res.json({
-            token: token
+            token: token,
+            user: user.id
           })
         }
         else {
-          res.status(401).send("Error with user login 1")
+          res.status(401).send({
+          success: false,
+          message: "Authentication failed. Wrong password."
+          })
         }
-      }
-      else {
-        res.status(401).send("Error wih user login 2")
-      }
-    })
-  }
-  else {
-    res.status(401).send("Error with user login 3")
-  }
+      })
+    }
+  })
+})
+
+// router.post('/login', (req, res) => {
+//   console.log("User is logging in");
+//   console.log("req is", req.body);
+//   User.findOne({
+//     email: req.body.email
+//   })
+//     .then(user => {
+//       User.comparePassword(req.body.password, function (err, isMatch){
+//         if (isMatch && !err) {
+//           // Create token if user is found and password is correct
+//           let payload = {
+//             id: user.id
+//           }
+//           let token = jwt.encode(payload, config.jwtSecret)
+//           res.json({
+//             token: token
+//           })
+//         }
+//       })
+//     })
+//     .catch(err => {
+//       res.status(401).send({
+//         success: false,
+//         error: 'Authentication failed. Wrong password.'
+//       })
+//     })
+// })
+
+// router.post('/login', (req, res) => {
+//   console.log("User is logging in")
+//   console.log("req is", req.body)
+//   if (req.body.email && req.body.password) {
+//     User.findOne({
+//       email: req.body.email
+//     })
+//     .then(user => {
+//       if (user) {
+//         if (user.password === req.body.password) {
+//           let payload = {
+//             id: user.id
+//           }
+//           let token = jwt.encode(payload, config.jwtSecret)
+//           res.json({
+//             token: token
+//           })
+//         }
+//         else {
+//           res.status(401).send(res)
+//         }
+//       }
+//       else {
+//         res.status(401).send(res)
+//       }
+//     })
+//     .catch(error => {
+//       console.log("login error here", error)
+//     })
+//   }
+//   else {
+//     res.status(401).send(res)
+//   }
+// })
+
+router.get('/', (req, res) => {
+  console.log("Getting users")
+  User.find({})
+  .then(users => {
+    res.json(users)
+  })
+  .catch(error => {
+    console.log("retrieval error", err)
+  })
 })
 
 module.exports = router;

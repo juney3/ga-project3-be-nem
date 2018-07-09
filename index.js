@@ -1,7 +1,12 @@
 // Core dependencies
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/comicly')
+
 const express = require('express');
 const parser = require('body-parser');
 const cors = require('cors')
+
 
 // Controllers
 const usersController = require('./controllers/usersController.js');

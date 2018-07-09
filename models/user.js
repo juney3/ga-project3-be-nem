@@ -1,5 +1,5 @@
 // Require Mongoose
-const mongoose = require('../db/connection');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // bcrypt settings
@@ -43,15 +43,15 @@ UserSchema.pre('save', function(next) {
   })
 })
 
-userSchema.methods.comparePassword = function(candidatePassword, callback) {
-  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+UserSchema.methods.comparePassword = function(submittedPassword, callback) {
+  bcrypt.compare(submittedPassword, this.password, function (err, isMatch) {
     if (err) {
-      return callback(err);
+      return callback("password comparison error", err);
     }
     callback(null, isMatch);
   })
 }
 
-mongoose.model('User', UserSchema);
+const ModelUser = mongoose.model('User', UserSchema);
 
-module.exports = mongoose;
+module.exports = ModelUser;
