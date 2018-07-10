@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
 // Require other models
-const List = require('./List.js');
+let List = require('./List.js');
 
 // Schema definition
 
@@ -52,6 +52,8 @@ UserSchema.methods.comparePassword = function(submittedPassword, callback) {
   })
 }
 
-const ModelUser = mongoose.model('User', UserSchema);
+// Export
 
-module.exports = ModelUser;
+let User = mongoose.model('User', UserSchema);
+
+module.exports = User;

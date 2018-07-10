@@ -14,6 +14,7 @@ const comicsController = require('./controllers/comicsController.js');
 const listsController = require('./controllers/listsController.js');
 const charactersController = require('./controllers/charactersController.js')
 const apiController = require('./controllers/apiController.js')
+const searchController = requires('./searchController.js')
 
 // Initialize express
 const app = express();
@@ -28,6 +29,7 @@ app.use(passport.initialize());
 
 // Routes
 app.use('/users', usersController);
+app.use('/search', searchController);
 // app.use('/characters', charactersController);
 // app.use('/comics', comicsController);
 // app.use('/api', apiController);
