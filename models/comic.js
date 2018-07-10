@@ -2,7 +2,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Required models
 let List = require('./List.js');
+let ComicUser = require('./ComicUser.js')
 
 // Schema definition
 let ComicSchema = new Schema({
@@ -15,11 +17,13 @@ let ComicSchema = new Schema({
   url: String,
   extension: String,
   coverImage: String,
-  isRead: Boolean,
-  notes: String,
   lists: [{
     type: Schema.Types.ObjectId,
     ref: 'List'
+  }],
+  comicUsers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'ComicUser'
   }]
 })
 
