@@ -14,7 +14,7 @@ const comicsController = require('./controllers/comicsController.js');
 const listsController = require('./controllers/listsController.js');
 const charactersController = require('./controllers/charactersController.js')
 const apiController = require('./controllers/apiController.js')
-const searchController = requires('./searchController.js')
+const searchController = require('./controllers/searchController.js')
 
 // Initialize express
 const app = express();

@@ -110,69 +110,6 @@ router.post('/login', function(req, res) {
   })
 })
 
-// router.post('/login', (req, res) => {
-//   console.log("User is logging in");
-//   console.log("req is", req.body);
-//   User.findOne({
-//     email: req.body.email
-//   })
-//     .then(user => {
-//       User.comparePassword(req.body.password, function (err, isMatch){
-//         if (isMatch && !err) {
-//           // Create token if user is found and password is correct
-//           let payload = {
-//             id: user.id
-//           }
-//           let token = jwt.encode(payload, config.jwtSecret)
-//           res.json({
-//             token: token
-//           })
-//         }
-//       })
-//     })
-//     .catch(err => {
-//       res.status(401).send({
-//         success: false,
-//         error: 'Authentication failed. Wrong password.'
-//       })
-//     })
-// })
-
-// router.post('/login', (req, res) => {
-//   console.log("User is logging in")
-//   console.log("req is", req.body)
-//   if (req.body.email && req.body.password) {
-//     User.findOne({
-//       email: req.body.email
-//     })
-//     .then(user => {
-//       if (user) {
-//         if (user.password === req.body.password) {
-//           let payload = {
-//             id: user.id
-//           }
-//           let token = jwt.encode(payload, config.jwtSecret)
-//           res.json({
-//             token: token
-//           })
-//         }
-//         else {
-//           res.status(401).send(res)
-//         }
-//       }
-//       else {
-//         res.status(401).send(res)
-//       }
-//     })
-//     .catch(error => {
-//       console.log("login error here", error)
-//     })
-//   }
-//   else {
-//     res.status(401).send(res)
-//   }
-// })
-
 router.get('/', (req, res) => {
   console.log("Getting users")
   User.find({})
@@ -182,6 +119,10 @@ router.get('/', (req, res) => {
   .catch(error => {
     console.log("retrieval error", err)
   })
+})
+
+router.get('/:id', (req, res) => {
+  console.log("finding user by id")
 })
 
 module.exports = router;
