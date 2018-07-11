@@ -51,11 +51,12 @@ router.post('/signup', (req, res) => {
                         if (user) {
                             console.log("here is the new user", user)
                             var payload = {
-                                id: newUser.id
+                                id: user._id
                             }
                             var token = jwt.encode(payload, config.jwtSecret)
                             res.json({
-                                token: token
+                                token: token,
+                                user: user._id
                             })
                         } else {
                             res.send("this is the first unauthorized error")
@@ -91,12 +92,12 @@ router.post('/login', function(req, res) {
       user.comparePassword(req.body.password, function (err, isMatch) {
         if (isMatch && !err) {
           let payload = {
-            id: user.id
+            id: user._id
           }
           let token = jwt.encode(payload, config.jwtSecret)
           res.json({
             token: token,
-            user: user.id
+            user: user._id
           })
         }
         else {

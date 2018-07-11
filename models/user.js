@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 // Require other models
 let List = require('./List.js');
+let ComicUser = require('./ComicUser.js');
 
 // Schema definition
 
@@ -19,8 +20,12 @@ let UserSchema = new Schema({
   lists: [{
     type: Schema.Types.ObjectId,
     ref: 'List'
+  }],
+  comicUsers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'ComicUser'
   }]
-},
+  },
   {
     timestamps: true
   });

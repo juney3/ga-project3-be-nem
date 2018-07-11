@@ -7,7 +7,7 @@ let List = require('./List.js');
 let Comic = require('./Comic.js')
 
 // Schema definition
-let ComicUserSchema = newSchema({
+let ComicUserSchema = new Schema({
   hasRead: Boolean,
   notes: String,
   lists: [{
@@ -20,6 +20,7 @@ let ComicUserSchema = newSchema({
   }]
 })
 
+// Export
 let ComicUser = mongoose.model('ComicUser', ComicUserSchema);
 
 module.exports = ComicUser;
