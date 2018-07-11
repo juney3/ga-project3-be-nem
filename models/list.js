@@ -9,11 +9,10 @@ const Comic = require('./Comic.js');
 // Schema definition
 
 let ListSchema = new Schema({
-  name: String,
-  description: String,
-  isPublic: Boolean,
-  marvelId: Number,
-  users: [{
+  listName: String,
+  listDescription: String,
+  listIsPublic: Boolean,
+  user: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
