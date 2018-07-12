@@ -17,32 +17,22 @@ router.post('/', (req, res) => {
   let minDate;
   let maxDate;
   let dates=[];
+  let characterMarvelId;
+  let apiUrl;
 
   function setQueryDates(start, end) {
     if (!start && !end) {
       minDate = 1950;
       maxDate = 2018;
-
     }
     else {
       minDate = start;
       maxDate = end;
     }
-
     dates.push(minDate);
     dates.push(maxDate);
-
     return(dates);
   }
-
-  setQueryDates(startYear, endYear)
-  console.log("minDate is", dates[0])
-  console.log("maxDate is", dates[1])
-
-  // Define query URL
-  let apiUrl =`https://gateway.marvel.com:443/v1/public/characters/${req.body.characterName}/comics?dateRange=${req.body.startYear}-01-01%2C%20${req.body.endYear}-12-31&apikey=${config.PUBLIC_KEY}&ts=${ts}&hash=${hash}`
-
-  console.log(apiUrl);
 
   Character.findOne({
     characterName: character
@@ -50,19 +40,28 @@ router.post('/', (req, res) => {
     .then(foundCharacter => {
       console.log("found the character!")
       console.log(foundCharacter);
+      characterMarvelId = foundCharacter.characterMarvelId;
+      setQueryDates(startYear, endYear);
+
+      apiUrl =`https://gateway.marvel.com:443/v1/public/characters/${characterMarvelId}/comics?dateRange=${minDate}-01-01%2C%20${maxDate}-12-31&apikey=${config.PUBLIC_KEY}&ts=${ts}&hash=${hash}`
+
+      console.log("here is the api url", apiUrl)
+
+      axios.get(apiUrl)
+        .then(response => {
+          let searchResults = response.data.data.results;
+          res.json(searchResults);
+        })
+        .catch(err => {
+          console.log("Search error", err);
+        })
     })
     .catch(err => {
       console.log("error finding character", err)
     })
 
-  // axios.get(apiUrl)
-  //   .then(response => {
-  //     let searchResults = response.data.data.results;
-  //     res.json(searchResults);
-  //   })
-  //   .catch(err => {
-  //     console.log("Search error", err);
-  //   })
+
+
 })
 
 module.exports = router;

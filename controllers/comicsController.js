@@ -36,8 +36,10 @@ router.post('/', (req, res) => {
       if (err) console.log("Error finding comic by Marvel ID", err)
 
       if (!comicFound) {
-        Comic.save(newComic, (err, comicCreated) => {
-          if (error) console.log('Error creating comic', err);
+        console.log("comic not found, creating comic")
+        Comic.create(newComic, (err, comicCreated) => {
+          if (err) console.log('Error creating comic', err);
+          console.log("updating list with comic")
           List.findByIdAndUpdate({
             _id: list
           },
@@ -53,6 +55,7 @@ router.post('/', (req, res) => {
       }
 
       if (comicFound) {
+        console.log("comic found, updating list")
         List.findByIdAndUpdate({
           _id: list
         },
