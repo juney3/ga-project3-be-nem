@@ -56,7 +56,7 @@ router.post('/signup', (req, res) => {
                             var token = jwt.encode(payload, config.jwtSecret)
                             res.json({
                                 token: token,
-                                user: user._id
+                                user: user
                             })
                         } else {
                             res.send("this is the first unauthorized error")
@@ -111,19 +111,24 @@ router.post('/login', function(req, res) {
   })
 })
 
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   console.log("Getting users")
-  User.find({})
-  .then(users => {
-    res.json(users)
+  let userId= req.params.id;
+  User.findOne({
+    _id: userId
   })
-  .catch(error => {
-    console.log("retrieval error", err)
+  .populate('lists')
+  .populate('comicUsers')
+  .exec(function (err, user) {
+    if (err) return (err);
+    res.json(user);
   })
 })
 
 router.get('/:id', (req, res) => {
-  console.log("finding user by id")
+  console.log('finding active user');
+  User.findById(id)
 })
+
 
 module.exports = router;
