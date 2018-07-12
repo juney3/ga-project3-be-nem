@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 // Required models
 let List = require('./list.js');
-let ComicUser = require('./comicuser.js')
+let ComicUser = require('./ComicUser.js')
 
 // Schema definition
 let ComicSchema = new Schema({

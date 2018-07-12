@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 // Require other models
 let List = require('./list.js');
-let ComicUser = require('./comicuser.js');
+let ComicUser = require('./ComicUser.js');
 
 // Schema definition
 
