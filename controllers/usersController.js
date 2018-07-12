@@ -34,6 +34,7 @@ router.post('/signup', (req, res) => {
               console.log("User name ok")
             }
           })
+          .catch(err => console.log(err))
 
         User.findOne({
           email: req.body.email
@@ -56,7 +57,7 @@ router.post('/signup', (req, res) => {
                             var token = jwt.encode(payload, config.jwtSecret)
                             res.json({
                                 token: token,
-                                user: user
+                                user: user._id
                             })
                         } else {
                             res.send("this is the first unauthorized error")
@@ -67,8 +68,8 @@ router.post('/signup', (req, res) => {
                 res.send("this is the second unauthorized error")
               }
             })
-            .catch(error => {
-              console.log("this was a sign up error", errs)
+            .catch(err => {
+              console.log("this was a sign up error", err)
             })
     }
     else {

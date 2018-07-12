@@ -26,25 +26,45 @@ router.post('/', (req, res) => {
     comicCoverImageUrl: req.body.comicCoverImageUrl,
     comicOnSaleDate: req.body.comicOnSaleDate,
     comicPrintPrice: req.body.comicPrintPrice,
-    lists: req.body.list,
+    list: req.body.list,
   }
 
-  comic.findOne({
-    _id: comicMarvelId
+  Comic.findOne({
+    comicMarvelId: req.body.comicMarvelId
   },
-    function (error, comicFound) {
-      if (error) console.log("Error finding comic by Marvel ID", err)
+    function (err, comicFound) {
+      if (err) console.log("Error finding comic by Marvel ID", err)
 
       if (!comicFound) {
-        Comic.create(newComic, (error, comicCreated) => {
-          if (error) console.log('Error creating comic', error);
-          List.findOneAndUpdate({
+        Comic.save(newComic, (err, comicCreated) => {
+          if (error) console.log('Error creating comic', err);
+          List.findByIdAndUpdate({
             _id: list
+          },
+          {$push:
+            {comics: comicCreated._id}
+          },
+          function(err, listUpdated){
+            if(err) {console.log("list update error", err)}
+            console.log(comicCreated);
+            res.json(listUpdated)
           })
         })
       }
-    })
 
+      if (comicFound) {
+        List.findByIdAndUpdate({
+          _id: list
+        },
+        {$push:
+          {comics: comicFound._id},
+        },
+        function(err, listUpdated){
+          if (err) {console.log('list update error', err)}
+          res.json(listUpdated)
+        })
+      }
+    })
 })
 
 module.exports = router;

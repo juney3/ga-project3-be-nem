@@ -27,7 +27,7 @@ router.get('/user/:id', (req, res) => {
   .populate('comics')
   .exec((err, listsFound) => {
     if (err) {
-      res.send([])
+      console.log("error", err)
     }
     res.json(listsFound)
   })
@@ -43,11 +43,13 @@ router.post('/', (req, res) => {
     user: req.body.user
   }
 
+  console.log(userId)
+
   List.create(newList, function (err, listCreated) {
     if (err) {
       console.log(err);
     }
-    User.findOneAndUpdate(
+    User.findByIdAndUpdate(
       {_id: userId},
       {$push:
         {lists: listCreated}
@@ -57,7 +59,7 @@ router.post('/', (req, res) => {
           console.log("user update error when adding list", error);
         }
         console.log("user updated", userUpdated);
-        User.findOne({
+        User.findById({
           _id: userId
         })
         .populate('lists')
