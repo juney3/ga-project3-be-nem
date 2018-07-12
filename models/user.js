@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt-nodejs');
 
 // Require other models
-let List = require('./List.js');
+let List = require('./list.js');
 let ComicUser = require('./comicuser.js');
 
 // Schema definition
