@@ -8,7 +8,7 @@ var Strategy = passportJWT.Strategy;
 var config = require('./config');
 
 //Import Mongoose models
-const mongoose = require('../models/User');
+const mongoose = require('../models/user.js');
 const User = mongoose.model('User');
 
 var params = {
