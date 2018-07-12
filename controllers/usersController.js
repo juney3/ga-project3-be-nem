@@ -115,11 +115,12 @@ router.post('/login', function(req, res) {
 router.get('/:id', (req, res) => {
   console.log("Getting users")
   let userId= req.params.id;
-  User.findOne({
+  User.findById({
     _id: userId
   })
   .populate('lists')
   .populate('comicUsers')
+  .select('-password')
   .exec(function (err, user) {
     if (err) return (err);
     res.json(user);
