@@ -10,26 +10,25 @@ const Comic = require('../models/Comic');
 //Routes
 
 router.get('/public', (req, res) => {
-  console.log('here is the get request for all lists');
-  List.find({}).
-  then(lists => {
-    console.log("response received")
+  List.find({})
+    .populate('comics')
+    .exec((err, lists) => {
+      if (err) console.log('error populating comic list')
+      let publicLists = lists.filter(list => list.isPublic === true)
+      res.json(publicLists);
+    })
   })
-  .catch(err => {
-    console.log("list error", err)
-  })
-})
 
 router.get('/user/:id', (req, res) => {
-  console.log('here is the get request for lists by user');
-  console.log(req.params.id);
   let userId = req.params.id;
   List.find({
     user: userId
   })
   .populate('comics')
-  .exec(function (err, listsFound) {
-    if (err) {console.log("Error finding lists by user")}
+  .exec((err, listsFound) => {
+    if (err) {
+      res.send([])
+    }
     res.json(listsFound)
   })
 })

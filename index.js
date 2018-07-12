@@ -35,9 +35,10 @@ app.use(passport.initialize());
 app.use('/users', usersController);
 app.use('/search', searchController);
 app.use('/lists', listsController);
+app.use('/comics', comicsController);
+
 
 // app.use('/characters', charactersController);
-// app.use('/comics', comicsController);
 // app.use('/api', apiController);
 
 // Set port

@@ -16,6 +16,7 @@ let ComicSchema = new Schema({
   comicResourceUrl: String,
   comicCoverImageUrl: String,
   comicOnSaleDate: Date,
+  comicPrintPrice: String,
   lists: [{
     type: Schema.Types.ObjectId,
     ref: 'List'
