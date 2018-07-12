@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 // Required models
-const List = require('../models/List');
-const User = require('../models/User');
-const Comic = require('../models/Comic');
+const List = require('../models/list.js');
+const User = require('../models/user.js');
+const Comic = require('../models/comic.js');
 
 //Routes
 

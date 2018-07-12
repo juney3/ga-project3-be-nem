@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Required models
-let List = require('./List.js');
-let Comic = require('./Comic.js')
+let List = require('./list.js');
+let Comic = require('./comic.js')
 
 // Schema definition
 let ComicUserSchema = new Schema({

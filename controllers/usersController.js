@@ -4,7 +4,7 @@ const router = express.Router();
 const jwt = require('jwt-simple');
 const passport = require('../config/passport');
 const config = require('../config/config');
-const User = require('../models/User');
+const User = require('../models/user.js');
 
 //Routes
 router.post('/signup', (req, res) => {

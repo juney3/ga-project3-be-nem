@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Required models
-const User = require('./User.js');
-const Comic = require('./Comic.js');
+const User = require('./user.js');
+const Comic = require('./comic.js');
 
 // Schema definition
 

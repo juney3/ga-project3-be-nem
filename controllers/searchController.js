@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const md5 = require('md5');
 const axios = require('axios');
-const Character = require('../models/Character')
+const Character = require('../models/character.js')
 
 let ts = Date.now()
 let hash = md5(ts+process.env.PRIVATE_KEY+process.env.PUBLIC_KEY);
