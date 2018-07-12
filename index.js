@@ -36,10 +36,8 @@ app.use('/users', usersController);
 app.use('/search', searchController);
 app.use('/lists', listsController);
 app.use('/comics', comicsController);
-
-
-// app.use('/characters', charactersController);
-// app.use('/api', apiController);
+app.use('/characters', charactersController);
+app.use('/api', apiController);
 
 // Set port
 app.listen(process.env.PORT || 3010, () => console.log("comic.ly is doing awesome things on port 3010"));

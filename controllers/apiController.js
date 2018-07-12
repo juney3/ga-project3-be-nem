@@ -1,4 +1,8 @@
-function index(req, res) {
+//Controller configuration
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => {
     res.json({
       message: 'Welcome to Comicly API!',
       documentation_url: 'NA',
@@ -9,7 +13,7 @@ function index(req, res) {
         }
       ]
     });
-  }
+  })
 
-  // exports above funciton index
-  module.exports = { index: index }
+  // exports above function index
+module.exports = router;

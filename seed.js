@@ -1,6 +1,7 @@
-var Character = require("./models/character");
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+var Character = require("./models/character");
 
 CharacterList = [
   {
