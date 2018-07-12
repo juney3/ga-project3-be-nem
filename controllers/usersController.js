@@ -127,10 +127,4 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.get('/:id', (req, res) => {
-  console.log('finding active user');
-  User.findById(id)
-})
-
-
 module.exports = router;
