@@ -12,6 +12,7 @@ const Comic = require('../models/comic.js');
 router.get('/public', (req, res) => {
   List.find({})
     .populate('comics')
+    .populate('user')
     .exec((err, lists) => {
       if (err) console.log('error populating comic list')
       let publicLists = lists.filter(list => list.isPublic === true)
