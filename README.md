@@ -36,7 +36,7 @@ To install this project, download the front-end and back-end repositories.
     - To seed character data in the database to speed comics retrieval, run: ```node seed.js```
 
 __Project Planning Deliverables__<br>
-https://github.com/juney3/ga-project3-fe-react/blob/master/Proj3_ERD-Wireframes-UserStory.zip
+https://github.com/juney3/ga-project3-be-nem/blob/master/Proj3_ERD-Wireframes-UserStory.zip  
   * User story
   * Wireframes
   * ERDs
