@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
           function(err, listUpdated){
             if(err) {console.log("list update error", err)}
             console.log(comicCreated);
-            res.json(listUpdated)
+            res.json(comicCreated)
           })
         })
       }
@@ -64,7 +64,7 @@ router.post('/', (req, res) => {
         },
         function(err, listUpdated){
           if (err) {console.log('list update error', err)}
-          res.json(listUpdated)
+          res.json(comicFound)
         })
       }
     })

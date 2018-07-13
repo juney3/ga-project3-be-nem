@@ -10,13 +10,18 @@ const Comic = require('../models/comic.js');
 //Routes
 
 router.get('/public', (req, res) => {
-  List.find({})
+  List.find({
+    listIsPublic: true
+  })
+    .sort({
+        'createdAt' : -1
+      })
+    .limit(10)
     .populate('comics')
     .populate('user')
     .exec((err, lists) => {
       if (err) console.log('error populating comic list')
-      let publicLists = lists.filter(list => list.isPublic === true)
-      res.json(publicLists);
+      res.json(lists);
     })
   })
 
