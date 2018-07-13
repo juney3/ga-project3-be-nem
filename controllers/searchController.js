@@ -38,14 +38,10 @@ router.post('/', (req, res) => {
     characterName: character
   })
     .then(foundCharacter => {
-      console.log("found the character!")
-      console.log(foundCharacter);
       characterMarvelId = foundCharacter.characterMarvelId;
       setQueryDates(startYear, endYear);
 
       apiUrl =`https://gateway.marvel.com:443/v1/public/characters/${characterMarvelId}/comics?dateRange=${minDate}-01-01%2C%20${maxDate}-12-31&apikey=${config.PUBLIC_KEY}&ts=${ts}&hash=${hash}`
-
-      console.log("here is the api url", apiUrl)
 
       axios.get(apiUrl)
         .then(response => {
@@ -59,9 +55,6 @@ router.post('/', (req, res) => {
     .catch(err => {
       console.log("error finding character", err)
     })
-
-
-
 })
 
 module.exports = router;
